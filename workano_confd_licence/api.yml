@@ -1,0 +1,148 @@
+paths:
+  /licence/check:
+    get:
+      summary: List All Surveys
+      description: '**Required ACL:** `confd.survey.read`'
+      tags:
+        - surveys
+      parameters:
+        - $ref: '#/parameters/tenantuuid'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/SurveyItems'
+
+components:
+  schemas:
+    QueueFeatures:
+      type: object
+      properties:
+        queue_id:
+          type: string
+          example: 1
+        play_agentnumber_enable:
+          type: string
+          example: 0
+        queue_survey_enable:
+          type: string
+          example: 1
+      xml:
+        name: QueueFeatures
+
+definitions:
+  QueueFeatures:
+    title: QueueFetures
+    allOf:
+      - properties:
+          queue_id:
+            type: integer
+            readOnly: true
+            description: The id of queue
+          play_agentnumber_enable:
+            type: string
+            readOnly: true
+            description: The play agentnumberenable
+          queue_survey_enable:
+            type: string
+            readOnly: true
+            description: The queue surveyenable
+
+
+  SurveyItems:
+    title: SurveyItems
+    allOf:
+      - properties:
+          id:
+            type: integer
+            readOnly: true
+            description: The id of the survey list
+          tenant_uuid:
+            type: string
+            readOnly: true
+            description: The tenant UUId
+          agent_id:
+            type: string
+            readOnly: true
+            description: The tenant UUId
+          agent_number:
+            type: string
+            readOnly: true
+            description: The agent_number
+          queue_id:
+            type: string
+            readOnly: true
+            description: The queue_id
+          queue_name:
+            type: string
+            readOnly: true
+            description: The queue_name
+          queue_number:
+            type: string
+            readOnly: true
+            description: queue_number
+          call_id:
+            type: string
+            readOnly: true
+            description: call_id
+          timestamp:
+            type: string
+            readOnly: true
+            description: The timestamp
+          rate:
+            type: string
+            readOnly: true
+            description: The rate
+
+  QueueFeaturesItems:
+    title: SurveyItems
+    allOf:
+      - properties:
+          id:
+            type: integer
+            readOnly: true
+            description: The id of the survey list
+          tenant_uuid:
+            type: string
+            readOnly: true
+            description: The tenant UUId
+          queue_id:
+            type: string
+            readOnly: true
+            description: The queue_id
+          play_agentnumber_enable:
+            type: string
+            readOnly: true
+            description: The play agentnumberenable
+          queue_survey_enable:
+            type: string
+            readOnly: true
+            description: The queue surveyenable
+
+parameters:
+  tenantuuid:
+    name: Wazo-Tenant
+    type: string
+    in: header
+    description: "The tenant's UUID, defining the ownership of a given resource."
+    required: false
+  queueid:
+    required: true
+    type: integer
+    name: queue_id
+    in: path
+    description: Queue's ID
+  agentnumber:
+    required: true
+    type: integer
+    name: agent_number
+    in: path
+    description: Agent's Number
+  queuefeaturesid:
+    required: true
+    type: integer
+    name: queuefeatures_id
+    in: path
+    description: Queuefeatures's ID
